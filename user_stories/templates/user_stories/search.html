@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Nazwa sali</th>
+        <th>Pojemność</th>
+        <th>Rzutnik</th>
+        <th></th>
+    </tr>
+    </thead>
+{% for room in rooms %}
+    <td><a href="{% url 'room' id=room.id %}"> {{room.name}}</a></td>
+    <td>{{ room.capacity }}</td>
+    <td> {% if room.projector %} ✓ {% endif %}</td>
+    <td><a href="{% url 'reservation' id=room.id %}">Rezerwuj</a> </td>
+    </tr>
+{% endfor %}
+</table>
+
+</body>
+</html>

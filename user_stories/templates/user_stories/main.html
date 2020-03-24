@@ -2,8 +2,52 @@
 {% extends 'user_stories/base.html' %}
 
 {% block content %}
+<form action="{% url 'search' %}" method="post">
+            {% csrf_token %}
+    <h3> Wyszukaj wolne sale: </h3>
+    <label>
+        Nazwa sali:
+        <input type="text" name="room_name">
+    </label>
+    <label>
+        Minimalna pojemność sali:
+        <input type="number" name="min_room_capacity">
+    </label>
+    <label>
+        Dzień:
+        <input type="date" name="date_reservation">
+    </label>
+    <label>
+        Obecność rzutnika:
+        <input type="checkbox" name="room_projector">
+    </label>
+    <input type="submit" value="Wyślij">
 
-Hello
-<blockquote>user_stories</blockquote>
+</form><br/>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Nazwa sali</th>
+        <th>Pojemność</th>
+        <th>Rzutnik</th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+
+{% for room in rooms %}
+    <tr  style="background-color:{% if room.is_unavailable_today %}red{% else %}green{% endif %}">
+    <td><a href="{% url 'room' id=room.id %}"> {{room}}</a></td>
+    <td>{{ room.capacity }}</td>
+    <td> {% if room.projector %} ✓ {% endif %}</td>
+    <td><a href="{% url 'room_modify' id=room.id %}">Edytuj</a></td>
+    <td><a href="{% url 'room_delete' id=room.id %}">Usuń</a></td>
+    <td><a href="{% url 'reservation' id=room.id %}">Rezerwuj</a> </td>
+    </tr>
+{% endfor %}
+</table><br/>
+
+<a href="{% url 'room_new' %}"> NOWA SALA </a>
 
 {% endblock %}

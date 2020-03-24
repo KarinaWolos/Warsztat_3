@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table border="1">
+    <thead>
+    <tr>
+        <th>Nazwa sali</th>
+        <th>Pojemność</th>
+        <th>Rzutnik</th>
+    </tr>
+    </thead>
+
+
+<tr  style="background-color:{% if i.is_unavailable_today %}magenta{% else %}green{% endif %}"><td>{{room.name}}</td><td>{{ room.capacity }}</td><td> {% if room.projector %} ✓ {% endif %}</td>
+</tr>
+
+</table>
+
+</body>
+</html>
